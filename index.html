@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luan Estifer | Full Stack Python Dev</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-card: rgba(22, 22, 22, 0.7);
+            --text-main: #f0f0f0;
+            --text-muted: #94a3b8;
+            --accent: #00ff88;
+            --accent-glow: rgba(0, 255, 136, 0.3);
+            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.03);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            width: 0%;
+            z-index: 1000;
+            box-shadow: 0 0 15px var(--accent);
+            transition: width 0.1s ease;
+        }
+
+        .mono {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .neon-text {
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 900;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            margin-left: 20px;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            font-weight: 800;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 14px 32px;
+            font-weight: 800;
+            border-radius: 8px;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        /* Background Blobs */
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            filter: blur(150px);
+            opacity: 0.05;
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-20%, -20%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '//';
+            color: var(--accent);
+            margin-right: 10px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+        }
+
+        .tech-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .tech-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            background: rgba(0, 255, 136, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .tech-card i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .tech-card:hover i {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 136, 0.1);
+        }
+
+        .project-img {
+            background: #111;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+
+        .project-content p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* Archive Section */
+        .archive-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            background: #111;
+            padding: 5px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: 'Fira Code', monospace;
+            transition: 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        .search-container {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-input {
+            width: 100%;
+            background: #111;
+            border: 1px solid var(--border);
+            padding: 12px 15px 12px 45px;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.1);
+        }
+
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .archive-card {
+            background: #111;
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 10px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .archive-card:hover {
+            border-color: var(--accent);
+            background: #161616;
+            transform: translateY(-3px);
+        }
+
+        .archive-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .archive-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .archive-card .tech-tags {
+            margin-top: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .archive-card .tech-tag {
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .tag {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-family: 'Fira Code', monospace;
+            margin-right: 10px;
+        }
+
+        .resume-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .resume-column h3 {
+            margin-bottom: 25px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resume-item {
+            border-left: 2px solid var(--border);
+            padding-left: 25px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .resume-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .resume-date {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .resume-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .resume-place {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .resume-desc {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        .download-cta {
+            text-align: center;
+            background: linear-gradient(180deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+            padding: 60px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        footer {
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            margin-top: 50px;
+        }
+
+        /* SEÇÃO DE XADREZ */
+        .chess-section {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr; /* Texto na esquerda, ícone na direita */
+            gap: 40px;
+            align-items: center;
+            background: linear-gradient(45deg, var(--bg-card), #111);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efeito de brilho verde atrás */
+        .chess-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            filter: blur(100px);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .chess-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 8rem; /* Ícone gigante */
+            color: var(--bg-dark);
+            text-shadow: -1px -1px 0 var(--accent),
+            1px -1px 0 var(--accent),
+            -1px 1px 0 var(--accent),
+            1px 1px 0 var(--accent); /* Cria apenas a borda neon */
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .chess-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .chess-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .resume-container {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 10px;
+                display: block;
+                text-align: center;
+            }
+
+            .archive-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-container {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="blob" style="top: -100px; left: -100px;"></div>
+<div class="blob" style="bottom: -100px; right: -100px; animation-delay: -10s;"></div>
+<div class="blob" style="top: 40%; left: 60%; width: 300px; height: 300px; opacity: 0.03; animation-duration: 30s;"></div>
+
+<div class="container">
+    <nav>
+        <div class="logo mono">Luan.<span class="neon-text">py</span></div>
+        <div class="social-links">
+            <a href="https://github.com/Zsubzeroz" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/luanestifer" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://wa.me/5519997222694" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:luanestiferpy@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+    </nav>
+
+    <section class="hero reveal">
+        <div>
+            <p class="mono neon-text">Ola, mundo! Eu sou Luan Estifer</p>
+            <h1><span id="typing-text"></span><br> <span class="neon-text">Full Stack Python</span></h1>
+            <p>Transformo necessidades de negócio em código eficiente. De processos industriais a arquitetura web escalável.</p>
+            <div style="margin-top: 30px;">
+                <a href="#projects" class="btn">Ver Portfólio</a>
+                <a href="#curriculo" class="btn btn-outline">Currículo</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding reveal">
+        <h2 class="section-title">Stack Tecnológica</h2>
+        <div class="tech-grid">
+            <div class="tech-card"><i class="fab fa-python"></i>
+                <h3>Python</h3></div>
+            <div class="tech-card"><i class="fas fa-layer-group"></i>
+                <h3>Django</h3></div>
+            <div class="tech-card"><i class="fas fa-database"></i>
+                <h3>SQL / ORM</h3></div>
+            <div class="tech-card"><i class="fab fa-react"></i>
+                <h3>React</h3></div>
+            <div class="tech-card"><i class="fab fa-git-alt"></i>
+                <h3>Git</h3></div>
+            <div class="tech-card"><i class="fas fa-terminal"></i>
+                <h3>Linux</h3></div>
+        </div>
+    </section>
+</div>
+
+
+<div style="background-color: #0f0f0f; width: 100%;">
+    <div class="container">
+        <section id="projects" class="section-padding reveal">
+            <h2 class="section-title">Projetos Selecionados</h2>
+
+            <div class="project-grid">
+                <!-- Project 1: StudyFlow AI -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="assets/images/studyflow_ai.png" alt="StudyFlow AI">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="mono neon-text">01. StudyFlow AI</h3>
+                        <p>Plataforma inteligente que transforma PDFs em materiais de estudo (flashcards e simulados) usando IA Generativa e Repetição Espaçada.</p>
+                        <div style="margin-bottom: 20px;">
+                            <span class="tag">JavaScript</span><span class="tag">AI</span><span class="tag">Education</span>
+                        </div>
+                        <a href="https://github.com/Zsubzeroz/studyflow-ai" target="_blank" class="neon-text"><i class="fab fa-github"></i> Ver Código</a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Kitchen Manager -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="assets/images/projeto2.png" alt="Kitchen Manager">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="mono neon-text">02. Kitchen Manager</h3>
+                        <p>API REST para gerenciamento de pedidos e fluxo de trabalho de uma cozinha de restaurante, desenvolvida com Django.</p>
+                        <div style="margin-bottom: 20px;">
+                            <span class="tag">Python</span><span class="tag">Django</span><span class="tag">REST API</span>
+                        </div>
+                        <a href="https://github.com/Zsubzeroz/cozinha-restaurante" target="_blank" class="neon-text"><i class="fab fa-github"></i> Ver Código</a>
+                    </div>
+                </div>
+
+                <!-- Project 3: Chess Strategy -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="assets/images/chess_strategy.png" alt="Chess Strategy">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="mono neon-text">03. Xadrez Chess</h3>
+                        <p>Jogo de xadrez estratégico com interface gráfica interativa, validação de movimentos reais e sistema de detecção de xeque-mate.</p>
+                        <div style="margin-bottom: 20px;">
+                            <span class="tag">JavaScript</span><span class="tag">Logic</span><span class="tag">Game Dev</span>
+                        </div>
+                        <a href="https://github.com/Zsubzeroz/Xadrez-Chess" target="_blank" class="neon-text"><i class="fab fa-github"></i> Ver Código</a>
+                    </div>
+                </div>
+
+                <!-- Project 4: Taxi Service Auth -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="assets/images/taxi_auth.png" alt="Taxi Service Auth">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="mono neon-text">04. Taxi Service Auth</h3>
+                        <p>Serviço de autenticação seguro baseado em JWT para aplicações de transporte, com registro e login de usuários.</p>
+                        <div style="margin-bottom: 20px;">
+                            <span class="tag">Python</span><span class="tag">JWT</span><span class="tag">Security</span>
+                        </div>
+                        <a href="https://github.com/Zsubzeroz/py-taxi-service-authentication" target="_blank" class="neon-text"><i class="fab fa-github"></i> Ver Código</a>
+                    </div>
+                </div>
+
+                <!-- Project 5: Piano Maestro Virtual -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="assets/images/piano_maestro.png" alt="Piano Maestro Virtual">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="mono neon-text">05. Piano Maestro Virtual</h3>
+                        <p>Sistema de auxílio ao estudo de piano, focado em organização de rotina e superação de dificuldades técnicas.</p>
+                        <div style="margin-bottom: 20px;">
+                            <span class="tag">JavaScript</span><span class="tag">Music Tech</span><span class="tag">Auth</span>
+                        </div>
+                        <a href="https://github.com/Zsubzeroz/Piano-Maestro-Virtual" target="_blank" class="neon-text"><i class="fab fa-github"></i> Ver Código</a>
+                    </div>
+                </div>
+
+                <!-- Project 6: Portfolio -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="assets/images/projeto1.png" alt="Portfolio">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="mono neon-text">06. Personal Portfolio</h3>
+                        <p>Este portfólio, desenvolvido para apresentar projetos de software, habilidades técnicas e trajetória profissional.</p>
+                        <div style="margin-bottom: 20px;">
+                            <span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">UI/UX</span>
+                        </div>
+                        <a href="https://github.com/Zsubzeroz/Portifolio" target="_blank" class="neon-text"><i class="fab fa-github"></i> Ver Código</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repository Archive -->
+            <div class="archive-header">
+                <h2 class="section-title" style="margin-bottom: 0;">Arquivo de Repositórios</h2>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="repo-search" class="search-input" placeholder="Buscar projeto ou tecnologia...">
+                </div>
+            </div>
+
+            <div class="filter-container" style="margin-bottom: 30px;">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="Python">Python</button>
+                <button class="filter-btn" data-filter="JavaScript">JavaScript</button>
+                <button class="filter-btn" data-filter="Django">Django</button>
+                <button class="filter-btn" data-filter="Outros">Outros</button>
+            </div>
+
+            <div id="archive-grid" class="archive-grid">
+                <!-- Repositories will be injected here via JavaScript -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="https://github.com/Zsubzeroz?tab=repositories" target="_blank" class="btn btn-outline">
+                    <i class="fab fa-github"></i> Ver no GitHub
+                </a>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<div class="container">
+    <section id="curriculo" class="section-padding reveal">
+        <h2 class="section-title">Trajetória & Currículo</h2>
+
+        <div class="resume-container">
+            <div class="resume-column">
+                <h3><i class="fas fa-graduation-cap neon-text"></i> Educação</h3>
+
+                <div class="resume-item">
+                    <span class="resume-date">2025 - Presente</span>
+                    <div class="resume-title">Full Stack Python</div>
+                    <div class="resume-place">Mate Academy Brasil</div>
+                    <p class="resume-desc">Formação intensiva (+600h) focada em empregabilidade, Python, Django e
+                        Ciência da Computação.</p>
+                </div>
+
+                <div class="resume-item">
+                    <span class="resume-date">2024 - 2027</span>
+                    <div class="resume-title">Engenharia de Software</div>
+                    <div class="resume-place">UniCesumar</div>
+                    <p class="resume-desc">Bacharelado com foco em arquitetura de software e gestão de projetos.</p>
+                </div>
+            </div>
+
+            <div class="resume-column">
+                <h3><i class="fas fa-briefcase neon-text"></i> Experiência</h3>
+
+                <div class="resume-item">
+                    <span class="resume-date">2025 - 2026</span>
+                    <div class="resume-title">Processos Digitais & ERP</div>
+                    <div class="resume-place">Ecoflora Brasil</div>
+                    <p class="resume-desc">Facilitação técnica na implantação de softwares e análise de dados
+                        produtivos.</p>
+                </div>
+
+                <div class="resume-item">
+                    <span class="resume-date">2023 - 2025</span>
+                    <div class="resume-title">Suporte & Automação</div>
+                    <div class="resume-place">Embrasatec</div>
+                    <p class="resume-desc">Operação de sistema Protheus e automação de planilhas de controle.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="download-cta">
+            <h3 style="margin-bottom: 15px; font-size: 1.5rem;">Gostou do que viu?</h3>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">
+                Baixe meu currículo completo em PDF para ver detalhes técnicos, certificações e histórico detalhado.
+            </p>
+
+            <a href="./assets/docs/CV - Luan Estifer Rodrigues Pereira - Software Engineer.pdf" download class="btn btn-large">
+                <i class="fas fa-file-download"></i> &nbsp; Baixar Currículo (PDF)
+            </a>
+        </div>
+
+    </section>
+
+    <section class="section-padding reveal">
+        <div class="chess-section">
+            <div class="chess-text">
+                <span class="chess-badge mono"><i class="fas fa-chess-king"></i> Hobby & Soft Skills</span>
+                <h2 class="section-title" style="margin-bottom: 20px;">O Código e o Tabuleiro</h2>
+                <p style="color: #ccc; font-size: 1.05rem; margin-bottom: 20px;">
+                    Para mim, programar é como uma partida de xadrez: exige <strong>antecipação, lógica e
+                    estratégia</strong>.
+                    Cada função é uma peça que precisa estar no lugar certo para o sistema vencer.
+                </p>
+                <ul style="list-style: none; margin-bottom: 20px;">
+                    <li style="margin-bottom: 10px; color: var(--text-muted);">
+                        <i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i>
+                        Fundador e Líder do <strong>Clube de Xadrez Munhoz</strong> (2021-2023).
+                    </li>
+                    <li style="margin-bottom: 10px; color: var(--text-muted);">
+                        <i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i>
+                        Desenvolvimento de pensamento algorítmico e resolução de problemas sob pressão.
+                    </li>
+                </ul>
+                <p class="mono neon-text" style="font-size: 0.9rem;">
+                    "No xadrez, como na programação, os detalhes definem o resultado."
+                </p>
+            </div>
+
+            <div class="chess-icon-container">
+                <i class="fas fa-chess-knight"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="section-padding reveal">
+        <h2 class="section-title">Vamos Conversar?</h2>
+        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 60px; text-align: center; backdrop-filter: blur(10px);">
+            <h3 style="font-size: 2rem; margin-bottom: 20px;">Tem um desafio para mim?</h3>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem;">
+                Estou sempre em busca de projetos inovadores e colaborações em Engenharia de Software. 
+                Sinta-se à vontade para entrar em contato!
+            </p>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <button onclick="copyEmail()" id="copy-email-btn" class="btn btn-large">
+                    <i class="fas fa-copy"></i> &nbsp; Copiar E-mail
+                </button>
+                <a href="https://wa.me/5519997222694" target="_blank" class="btn btn-large" style="background: #25d366; color: white;">
+                    <i class="fab fa-whatsapp"></i> &nbsp; WhatsApp
+                </a>
+                <a href="mailto:luanestiferpy@gmail.com" class="btn btn-large btn-outline">
+                    <i class="fas fa-paper-plane"></i> &nbsp; Enviar Direto
+                </a>
+                <a href="https://linkedin.com/in/luanestifer" target="_blank" class="btn btn-large btn-outline">
+                    <i class="fab fa-linkedin"></i> &nbsp; LinkedIn
+                </a>
+            </div>
+            <div style="margin-top: 40px; color: var(--text-muted); font-size: 0.9rem;" class="mono">
+                <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> Artur Nogueira, SP &nbsp; | &nbsp; 
+                <i class="fas fa-phone" style="color: var(--accent);"></i> +55 (19) 99722-2694
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div style="margin-bottom: 20px;">
+            <a href="#" style="color: var(--accent); font-size: 1.5rem;"><i class="fas fa-chevron-up"></i></a>
+        </div>
+        <p class="mono">Desenvolvido por Luan Estifer <span style="color: var(--accent);">//</span> 2026</p>
+    </footer>
+</div>
+
+<script>
+    const projects = [
+        { name: "Mario-Jump", desc: "Clássico jogo do Mario com mecânicas de pulo e obstáculos, desenvolvido com HTML/CSS e JS.", tech: ["JavaScript", "Game"], url: "https://github.com/Zsubzeroz/Mario-Jump" },
+        { name: "Snake-Game", desc: "O clássico 'jogo da cobrinha' com sistema de pontuação e níveis de velocidade progressivos.", tech: ["JavaScript", "Game"], url: "https://github.com/Zsubzeroz/Snake-Game" },
+        { name: "podologa-fabricia", desc: "Site profissional para clínica de podologia, com agendamento e galeria de serviços.", tech: ["HTML", "CSS", "JS"], url: "https://github.com/Zsubzeroz/podologa-fabricia" },
+        { name: "django-todo-list", desc: "Gerenciador de tarefas completo com autenticação de usuários e persistência em banco de dados.", tech: ["Python", "Django"], url: "https://github.com/Zsubzeroz/django-todo-list" },
+        { name: "Xadrez-Chess", desc: "Engine de xadrez e interface para partidas locais, com validação de regras oficiais.", tech: ["JavaScript", "Logic"], url: "https://github.com/Zsubzeroz/Xadrez-Chess" },
+        { name: "Piano-Maestro-Virtual", desc: "Interface musical interativa para aprendizado de teoria e prática de piano.", tech: ["JavaScript", "Audio"], url: "https://github.com/Zsubzeroz/Piano-Maestro-Virtual" },
+        { name: "py-taxi-service-authentication", desc: "Módulo de segurança robusto para serviços de transporte via app.", tech: ["Python", "Auth"], url: "https://github.com/Zsubzeroz/py-taxi-service-authentication" },
+        { name: "Anota-o", desc: "App de notas rápidas com suporte a Markdown e organização por categorias.", tech: ["JavaScript", "Productivity"], url: "https://github.com/Zsubzeroz/Anota-o" },
+        { name: "app-generator", desc: "Ferramenta para automatizar a criação de estruturas básicas de projetos Python.", tech: ["Python", "CLI"], url: "https://github.com/Zsubzeroz/app-generator" },
+        { name: "Calculadora-de-IMC", desc: "Calculadora de Índice de Massa Corporal com dicas de saúde baseadas no resultado.", tech: ["JavaScript", "Health"], url: "https://github.com/Zsubzeroz/Calculadora-de-IMC" },
+        { name: "ControleDeEstoque-Simples", desc: "Sistema básico para controle de entrada e saída de mercadorias em pequenos comércios.", tech: ["C#", "System"], url: "https://github.com/Zsubzeroz/ControleDeEstoque-SImples" },
+        { name: "memory-game", desc: "Jogo da memória temático com diferentes níveis de dificuldade e cronômetro.", tech: ["JavaScript", "Game"], url: "https://github.com/Zsubzeroz/memory-game" },
+        { name: "Relógio", desc: "Relógio digital moderno com cronômetro, timer e alarmes configuráveis.", tech: ["JavaScript", "UI"], url: "https://github.com/Zsubzeroz/Rel-gio" },
+        { name: "Sistema-de-login", desc: "Template de sistema de login seguro com proteção contra brute-force e hashing de senhas.", tech: ["Python", "Security"], url: "https://github.com/Zsubzeroz/Sistema-de-login" },
+        { name: "Adivinhe-de-0-a-100", desc: "Jogo de lógica onde o usuário deve adivinhar o número secreto com dicas.", tech: ["Python", "Logic"], url: "https://github.com/Zsubzeroz/Adivinhe-de-0-a-100" }
+    ];
+
+    const archiveGrid = document.getElementById('archive-grid');
+    const searchInput = document.getElementById('repo-search');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    function renderProjects(filter = 'all', search = '') {
+        archiveGrid.innerHTML = '';
+        
+        const filtered = projects.filter(p => {
+            const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) || 
+                                 p.desc.toLowerCase().includes(search.toLowerCase()) ||
+                                 p.tech.some(t => t.toLowerCase().includes(search.toLowerCase()));
+            
+            if (filter === 'all') return matchesSearch;
+            if (filter === 'Outros') {
+                return matchesSearch && !p.tech.includes('Python') && !p.tech.includes('JavaScript') && !p.tech.includes('Django');
+            }
+            return matchesSearch && p.tech.includes(filter);
+        });
+
+        filtered.forEach(p => {
+            const card = document.createElement('a');
+            card.href = p.url;
+            card.target = "_blank";
+            card.className = 'archive-card';
+            card.innerHTML = `
+                <h4>${p.name}</h4>
+                <p>${p.desc}</p>
+                <div class="tech-tags">
+                    ${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                </div>
+            `;
+            archiveGrid.appendChild(card);
+        });
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+        renderProjects(activeFilter, e.target.value);
+    });
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProjects(btn.dataset.filter, searchInput.value);
+        });
+    });
+
+    // Initial render
+    renderProjects();
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('progress-bar').style.width = scrolled + "%";
+    });
+
+    // Reveal Animation
+    const reveal = () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(el => {
+            const windowHeight = window.innerHeight;
+            const revealTop = el.getBoundingClientRect().top;
+            const revealPoint = 150;
+            if (revealTop < windowHeight - revealPoint) {
+                el.classList.add('active');
+            }
+        });
+    };
+    window.addEventListener('scroll', reveal);
+    reveal(); // Initial check
+
+    // Typing Effect
+    const text = "Engenharia de Software &";
+    let index = 0;
+    const typingText = document.getElementById('typing-text');
+    function type() {
+        if (index < text.length) {
+            typingText.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(type, 100);
+        }
+    }
+    type();
+    // Copy Email
+    function copyEmail() {
+        const email = "luanestiferpy@gmail.com";
+        navigator.clipboard.writeText(email).then(() => {
+            const btn = document.querySelector('#copy-email-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> &nbsp; Copiado!';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        });
+    }
+</script>
+
+</body>
+</html>

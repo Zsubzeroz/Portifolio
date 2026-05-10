@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luan Estifer | Software Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #0f172a;       /* Chumbo escuro elegante */
+            --card: #1e293b;     /* Slate um pouco mais claro */
+            --accent: #00ff88;   /* Verde Neon Soft */
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            background-color: #334155;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .page {
+            background-color: var(--bg);
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+        }
+
+        .mono { font-family: 'Fira Code', monospace; }
+        
+        /* HEADER UNIFICADO */
+        header {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: white;
+        }
+
+        .contact-info {
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* COMPONENTES */
+        .section-title {
+            font-size: 1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            margin-left: 15px;
+        }
+
+        .badge-video {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin: 10px 0;
+            transition: 0.3s;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+        }
+
+        .exp-item { margin-bottom: 20px; }
+        .exp-header { display: flex; justify-content: space-between; font-weight: 700; color: white; font-size: 0.95rem; }
+        .exp-sub { color: var(--accent); font-size: 0.85rem; margin: 2px 0; }
+        
+        ul { list-style: none; margin-top: 8px; }
+        ul li {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+            padding-left: 15px;
+            position: relative;
+        }
+        ul li::before {
+            content: '>';
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-family: 'Fira Code';
+        }
+
+        .skill-pill {
+            display: inline-block;
+            background: var(--card);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin: 0 5px 8px 0;
+            border: 1px solid var(--border);
+        }
+
+        /* CARTA DE APRESENTAÇÃO */
+        .letter-content {
+            line-height: 1.8;
+            color: var(--text-main);
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .print-btn { display: none; }
+            .page { 
+                margin: 0; 
+                box-shadow: none; 
+                border: none;
+                height: 100vh;
+                page-break-after: always; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn" onclick="window.print()">📥 EXPORTAR PDF</button>
+
+    <!-- PÁGINA 1: CURRÍCULO -->
+    <div class="page">
+        <header>
+            <div>
+                <h1 class="mono">Luan Estifer</h1>
+                <p class="mono" style="color: var(--accent); font-size: 0.9rem;">Software_Engineering_Student</p>
+            </div>
+            <div class="contact-info mono">
+                <span><i class="fas fa-envelope"></i> luanestiferpy@gmail.com</span><br>
+                <span><i class="fas fa-phone"></i> +55 (19) 99722-2694</span><br>
+                <span><i class="fab fa-linkedin"></i> /in/luanestifer</span><br>
+                <span><i class="fab fa-github"></i> github.com/Zsubzeroz</span><br>
+                <span><i class="fas fa-map-marker-alt"></i> Artur Nogueira, SP</span>
+            </div>
+        </header>
+
+        <a href="https://www.loom.com/share/0f49c21960fb459eaa6bdbbdccc4237c" target="_blank" class="badge-video mono">
+            <i class="fas fa-play"></i> RUN_PRESENTATION_VIDEO (2min)
+        </a>
+
+        <div class="grid" style="margin-top: 10px;">
+            <!-- COLUNA PRINCIPAL -->
+            <div class="main-col">
+                <h2 class="section-title mono">Experience</h2>
+                
+                <div class="exp-item">
+                    <div class="exp-header"><span>Auxiliar de Produção IA</span> <span>2025 - 2026</span></div>
+                    <div class="exp-sub mono">Ecoflora Brasil</div>
+                    <ul>
+                        <li>Transformação digital de processos manuais via AppSheet e Python.</li>
+                        <li>Desenvolvimento de fluxos automatizados para integridade de dados.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-item">
+                    <div class="exp-header"><span>Suporte Administrativo</span> <span>2023 - 2025</span></div>
+                    <div class="exp-sub mono">Embrasatec</div>
+                    <ul>
+                        <li>Extração e automação de KPIs do ERP Protheus utilizando Python.</li>
+                        <li>Investigação de causas-raiz em inconsistências lógicas de estoque.</li>
+                    </ul>
+                </div>
+
+                <h2 class="section-title mono">Projects</h2>
+                <div class="exp-item">
+                    <div class="exp-header">Gestão de Cozinha & Insumos</div>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Backend Django com modelagem de dados complexa e persistência SQL.</p>
+                </div>
+                <div class="exp-item">
+                    <div class="exp-header">Check List Full Stack</div>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">Arquitetura MVT com consumo de APIs dinâmicas e Git flow.</p>
+                </div>
+            </div>
+
+            <!-- COLUNA LATERAL -->
+            <div class="side-col">
+                <h2 class="section-title mono">Technical_Skills</h2>
+                <div style="margin-bottom: 15px;">
+                    <span class="skill-pill">Python (Expert)</span>
+                    <span class="skill-pill">Django / DRF</span>
+                    <span class="skill-pill">SQL Server</span>
+                    <span class="skill-pill">Git / GitHub</span>
+                    <span class="skill-pill">C# / .NET</span>
+                    <span class="skill-pill">Docker</span>
+                    <span class="skill-pill">API RESTful</span>
+                    <span class="skill-pill">Excel VBA</span>
+                </div>
+
+                <h2 class="section-title mono">Education</h2>
+                <p style="font-size: 0.85rem; font-weight: 700;">Engenharia de Software</p>
+                <p style="font-size: 0.8rem; color: var(--accent);">UniCesumar | Out 2027</p>
+                <p style="font-size: 0.75rem; color: var(--text-dim);">Média Acadêmica: 8,4 / 10</p>
+
+                <h2 class="section-title mono">Languages</h2>
+                <p style="font-size: 0.85rem; font-weight: 700;">English B2 (Upper-Int)</p>
+                <p style="font-size: 0.75rem; color: var(--text-dim);">SEDA College / Fluency Academy</p>
+
+                <h2 class="section-title mono">Mindset</h2>
+                <ul>
+                    <li>Líder de Equipe de Xadrez</li>
+                    <li>Vencedor Olimp. Astronomia</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: CARTA DE APRESENTAÇÃO -->
+    <div class="page">
+        <header>
+            <h1 class="mono">Cover_<span style="color: var(--accent)">Letter</span></h1>
+            <div class="contact-info mono">Luan Estifer Rodrigues Pereira</div>
+        </header>
+
+        <div class="letter-content">
+            <p class="mono" style="color: var(--accent); margin-bottom: 30px;">// Local: Artur Nogueira, SP.</p>
+            
+            <p>Prezados responsáveis pela seleção,</p>
+
+            <p>Demonstro meu forte interesse em integrar sua equipe de tecnologia. Como estudante de Engenharia de Software apaixonado por lógica e eficiência, busco uma oportunidade onde eu possa aplicar minha base técnica em <strong>Python e Django</strong> para construir soluções que gerem valor real ao negócio.</p>
+
+            <p>Minha trajetória é marcada pela proatividade em unir a tecnologia à operação. Na Embrasatec e Ecoflora, utilizei Python e SQL para automatizar processos em sistemas de alta criticidade como o <strong>ERP Protheus</strong>. Essa vivência me conferiu a maturidade para traduzir requisitos complexos em código funcional, testável e escalável.</p>
+
+            <p>Um dos meus diferenciais competitivos é o investimento contínuo na minha comunicação global. Possuo nível de <strong>inglês B2</strong> e estudo ativamente em instituições internacionais, o que me permite colaborar em ambientes multiculturais e consumir documentações técnicas avançadas com facilidade.</p>
+
+            <p>Além disso, minha base estratégica como <strong>líder de equipe de xadrez</strong> e vencedor de olimpíadas científicas forjou meu raciocínio lógico investigativo, competência que aplico na arquitetura de software e na resolução de problemas complexos.</p>
+
+            <div style="background: var(--card); border: 1px dashed var(--accent); padding: 25px; text-align: center; margin: 30px 0; border-radius: 4px;">
+                <p class="mono" style="margin-bottom: 10px;">> DESEJA_CONHECER_MINHA_COMUNICACAO?</p>
+                <a href="https://www.loom.com/share/0f49c21960fb459eaa6bdbbdccc4237c" target="_blank" style="color: var(--accent); font-weight: 700; text-decoration: none;">CLIQUE_AQUI_PARA_ASSISTIR_VÍDEO</a>
+            </div>
+
+            <p>Tenho total disponibilidade para atuação remota ou híbrida, com flexibilidade garantida pelo meu formato de estudos EAD. Agradeço pela atenção e coloco-me à disposição para um teste técnico.</p>
+
+            <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border);">
+                <p class="mono" style="color: var(--accent);">Atenciosamente,</p>
+                <p style="font-weight: 700; font-size: 1.1rem;">Luan Estifer Rodrigues Pereira</p>
+                <p style="font-size: 0.8rem; color: var(--text-dim);">Python Developer | B2 English | Software Engineer Student</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
