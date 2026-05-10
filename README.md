@@ -1,13 +1,13 @@
-# 🚀 Professional Portfolio | Luan Estifer
+# 🚀 Luan Estifer | Software Engineer & AI Builder
 
-Modern, high-performance portfolio developed to showcase software engineering projects, technical skills, and professional trajectory.
+Transformando dados industriais e processos manuais em automações escaláveis com Python, C# e IA Generativa.
 
 ![Portfolio Preview](assets/images/studyflow_ai.png)
 
 ## 💎 Features
 
-- **Selected Projects Grid**: Highlights the top 6 repositories with custom-generated high-quality thumbnails.
-- **Repository Archive**: Interactive section listing over 15+ projects with live search and category filtering (Python, JavaScript, Django, etc.).
+- **Selected Projects Grid**: Vitrine estratégica focada em **Problema vs Resultado**.
+- **Repository Archive**: Interactive section listing over 15+ projects with live search and category filtering.
 - **Premium UI/UX**:
     - **Glassmorphism**: Elegant blur effects and semi-transparent layers.
     - **Reveal Animations**: Content smoothly fades into view on scroll.
@@ -16,7 +16,7 @@ Modern, high-performance portfolio developed to showcase software engineering pr
     - **Neon Aesthetic**: Dark mode with vibrant green accents.
 - **Contact Integration**: 
     - One-click email copy functionality.
-    - Direct links to LinkedIn and GitHub.
+    - Direct links to LinkedIn, GitHub, and WhatsApp.
 - **Responsive Design**: Fully optimized for mobile, tablet, and desktop.
 
 ## 🛠️ Tech Stack
@@ -28,11 +28,11 @@ Modern, high-performance portfolio developed to showcase software engineering pr
 ## 📁 Project Structure
 
 ```text
-├── index.html          # Main landing page
+├── index.html          # Main landing page (Vendas/Branding)
 ├── curriculo.html      # Digital CV / Resume page
 ├── assets/
 │   ├── images/         # Project thumbnails and screenshots
-│   └── docs/           # CV PDF and other documents
+│   └── docs/           # CV PDF (Currículo Master)
 └── README.md           # Documentation
 ```
 
@@ -40,7 +40,7 @@ Modern, high-performance portfolio developed to showcase software engineering pr
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Zsubzeroz/Portifolio.git
+   git clone https://github.com/Zsubzeroz/Portfolio.git
    ```
 2. Open `index.html` in your favorite browser.
 
